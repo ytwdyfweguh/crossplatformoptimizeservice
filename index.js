@@ -1,10 +1,13 @@
-function numSquares(n) {
-  const dp = new Array(n + 1).fill(Infinity);
-  dp[0] = 0;
-  for (let i = 1; i <= n; i++) {
-    for (let j = 1; j * j <= i; j++) {
-      dp[i] = Math.min(dp[i], dp[i - j * j] + 1);
-    }
-  }
-  return dp[n];
+function rightSideView(root) {
+  if (!root) return [];
+  const result = [];
+  let level = 0;
+  const traverse = (node, level) => {
+    if (!node) return;
+    if (result[level] === undefined) result[level] = node.val;
+    traverse(node.right, level + 1);
+    traverse(node.left, level + 1);
+  };
+  traverse(root, level);
+  return result;
 }
